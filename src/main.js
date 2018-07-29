@@ -9,6 +9,8 @@ import Vuex from 'vuex';
 import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
 
+import store from './store/index';
+
 
 
 Vue.use(Vant);
@@ -16,10 +18,12 @@ Vue.use(Vuex);
 
 Vue.config.productionTip = false
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

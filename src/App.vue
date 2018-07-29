@@ -1,15 +1,24 @@
 <template>
     <div id="app">
-        <topbar></topbar>
+        <keep-alive>
+             <topbar></topbar>
+        </keep-alive>
+       
         <transition :name="transitionName">
-            <router-view class="c-content-view"/>
+           <keep-alive>
+                <router-view class="c-content-view"/>
+           </keep-alive>
         </transition>
-        <menus></menus>
+        <keep-alive>
+            <menus></menus>
+        </keep-alive>
 
     </div>
 </template>
 
 <script>
+    import ApiConfig from './api/config';
+    console.log(ApiConfig);
     import topbar from './components/topbar/topbar';
     import menus from './components/menus/menus';
     export default {
@@ -38,13 +47,17 @@
 
 <style>
     body,
+    #app,
     html {
         padding: 0;
         margin: 0;
         color: #434e58;
+        height: 100%;
     }
     .c-content-view {
+        margin-top: 46px;
         margin-bottom: 64px;
+       
     }
 
     .slide-left-enter-active,
@@ -52,8 +65,10 @@
     .slide-right-enter-active,
     .slide-right-leave-active {
         will-change: transform;
-        transition: all 400ms;
+        transition: all 360ms;
         position: absolute;
+        width: 100%;
+
     }
     .slide-right-enter {
         opacity: 0;

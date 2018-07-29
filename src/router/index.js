@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+
 import Apply from '../views/apply/apply'
 import Main from '../views/main/main';
 import MyApply from '../views/myApply/myApply';
 import MyApproval from '../views/myApproval/myApproval';
+import ApprovalDetail from '../views/approvalDetail/approvalDetail';
+
 
 Vue.use(Router)
 
@@ -17,18 +19,27 @@ export default new Router({
     },{
       path:"/apply",
       name:"apply",
-      component:Apply
+      component:Apply,
+      children:[]
     },
     {
       path:"/myApproval",
       name:"myApproval",
-      component:MyApproval
+      component:MyApproval,
     },
     {
       path:"/myApply",
       name:"myApply",
-      component:MyApply
+      component:MyApply,
+
+    },{
+      path:"/approvalDetail",
+      name:"approvalDetail",
+      component:ApprovalDetail
     }
+
+
+
 
 
 

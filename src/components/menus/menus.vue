@@ -1,59 +1,45 @@
 <template>
 
     <van-row class="c-menus-panel">
-        <van-col class="c-menus-itemwrap" :span="8">
+        
+        <van-col v-for="menu in this.menus.list" :key="menu.name" class="c-menus-itemwrap" :span="8">
             <van-row class="c-menus-item" type="flex" justify="center" align="center">
                 <van-col class="c-menus-content">
-                    <div @click="changeRouter('apply')">
+                    <div class="c-menus-default" :class="{'c-menus-activity':activiteMenu===menu.name}"  @click="changeRouter(menu.name)">
                         <div>
-                            <i class="c-menus-icon icon iconfont icon-xinshenqing"></i>
+                            <i class="c-menus-icon" :class="menu.icon" ></i>
                         </div>
-                        <div class="c-menus-text">新申请</div>
+                        <div class="c-menus-text">{{menu.title}}</div>
                     </div>
                 </van-col>
             </van-row>
         </van-col>
-
-        <van-col class="c-menus-itemwrap" :span="8">
-            <van-row class="c-menus-item" type="flex" justify="center" align="center">
-                <van-col class="c-menus-content">
-                    <div @click="changeRouter('myApproval')">
-                        <div>
-                            <i class="c-menus-icon icon iconfont icon-shenpi"></i>
-                        </div>
-                        <div class="c-menus-text">我审批的</div>
-                    </div>
-                </van-col>
-            </van-row>
-        </van-col>
-
-        <van-col class="c-menus-itemwrap" :span="8">
-            <van-row class="c-menus-item" type="flex" justify="center" align="center">
-                <van-col class="c-menus-content">
-                    <div @click="changeRouter('myApply')">
-                        <div>
-                            <i class="c-menus-icon icon iconfont icon-shangchuan"></i>
-                        </div>
-                        <div class="c-menus-text">我提交的</div>
-                    </div>
-                </van-col>
-            </van-row>
-        </van-col>
-
     </van-row>
 
 </template>
 
 <script>
     import "../../css/icon/baseIcon/iconfont.css";
-
+    import templateMap from '../../store/modules/template/templateMap';
+    import { mapActions, mapGetters } from 'vuex';
     export default {
         name: "menus",
+        data(){
+            return {
+                activiteMenu:"apply",
+                menus:{}
+            }
+        },
+        beforeMount(){
+            this.activiteMenu=this.$router.history.current.name;
+            this.menus=this.menusGet();
+        },
         methods: {
+            ...mapActions(templateMap.actions),
+            ...mapGetters(templateMap.getters),
             changeRouter(routerName) {
-                console.log(routerName);
+                this.activiteMenu=routerName;
                 this.$router.push(routerName);
-
             }
 
         }
@@ -80,5 +66,11 @@
     .c-menus-text {
         margin-top: 4px;
         font-size: 12px;
+    }
+    .c-menus-default{
+
+    }
+    .c-menus-activity{
+        color: #ff5353;
     }
 </style>
